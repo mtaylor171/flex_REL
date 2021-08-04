@@ -97,15 +97,17 @@ def message_display(msg, desired_answer):
             print("*****************************")
             return 0
 
-def main(mode, RUN_TIME, DUTY):
+def main(MODE, RUN_TIME, DUTY, REP):
 
     RPM_GPIO = 4
     PWM_GPIO = 19
 
     SAMPLE_TIME = 5
 
+    file_raw_row = []
+
     print('\033c')
-    print(f"\nTESTING MODE {mode + 1}...\n")
+    print(f"\nTESTING MODE {MODE + 1}, REPETITION {REP + 1} ...\n")
 
     pi = pigpio.pi()
 
@@ -126,7 +128,16 @@ def main(mode, RUN_TIME, DUTY):
 
             print('\033c')
             print("Time: {} ".format(round(time.time() - start), 1) + "RPM = {}".format(int(RPM+0.5)/2) + " (Press CTRL + C to STOP")
-        
+
+            writer = csv.writer(file_raw)
+            file_raw_row = []
+            file_raw_row.append(str(datetime.datetime.now().replace(microsecond=0)))           # timestamp
+            file_raw_row.append(MODE)                      # mode number
+            file_raw_row.append(REP)                      # repetition number
+            file_raw_row.append(RUN_TIME)                # duration
+            file_raw_row.append(DUTY)                # PWM
+            file_raw_row.append(RPM)                # Avg RPM
+            writer.writerow(file_main_row)
         except KeyboardInterrupt:
             print("*****************************")
             print("\nTest Cancelled\n")
@@ -154,10 +165,10 @@ def user_input(message, limit):
 def display_results(RPM_AVG, settings):
     print("\nTEST RESULTS:\n")
     for i in range(0, len(settings[0])):
-        print(f"Mode = {i+1}, Duration = {settings[0][i]}, PWM = {settings[1][i]} %, Avg RPM = {round(RPM_AVG[i], 1)}")
+        print(f"Mode = {i+1}, Duration = {settings[0][i]}, Repetition = {settings[2][i]}, PWM = {settings[1][i]} %, Avg RPM = {round(RPM_AVG[i], 1)}")
 
 def start_sequence():
-    settings = [[],[]]
+    settings = np.array([[],[],[]])
 
     print('\033c')
     print("*****************************")
@@ -168,8 +179,9 @@ def start_sequence():
     mode_max = user_input("Enter number of settings (max 10):", 10)
 
     for i in range(0, mode_max):
-        settings[0].append(user_input(f"Enter mode {i + 1} duration (mins):", 60000))   # max 1000 hours
+        settings[0].append(user_input(f"Enter mode {i + 1} duration (mins):", 60001))   # max 1000 hours
         settings[1].append(user_input(f"Enter mode {i + 1} PWM %:", 96))  # max duty cycle 96%
+        settings[2].append(user_input(f"Enter mode {i + 1} repetitions:", 1001))  # max reps 1000
 
     return settings
 
@@ -179,6 +191,9 @@ if __name__ == "__main__":
     import time
     import pigpio
     import fan_main
+
+    global file_raw
+    global file_main
     
     while(1):
         RPM_AVG = []
@@ -187,26 +202,38 @@ if __name__ == "__main__":
 
         FILE_OUTPUT_NAME = str(datetime.datetime.now().replace(microsecond=0))
         file_raw = open("/home/pi/Documents/FAN_DATA_FOLDER/" + FILE_OUTPUT_NAME + "_RAW", 'w', newline='')
+        writer = csv.writer(file_main)
+        HEADER = ["MODE", "REPETITION", "TIMESTAMP", "PWM", "RPM"]
+        writer.writerow(HEADER)
 
         if(os.path.exists("/home/pi/Documents/FAN_DATA_FOLDER/FILE_MAIN")):
-            file = open("/home/pi/Documents/FAN_DATA_FOLDER/FILE_MAIN", 'a', newline = '')
+            file_main = open("/home/pi/Documents/FAN_DATA_FOLDER/FILE_MAIN", 'a', newline = '')
             pass
         else:
-            file = open("/home/pi/Documents/FAN_DATA_FOLDER/FILE_MAIN", 'w', newline = '')
-            writer = csv.writer(file)
-            HEADER = ["MODE", "REPETITION", "TIMESTAMP", "PWM", "RPM"]
+            file_main = open("/home/pi/Documents/FAN_DATA_FOLDER/FILE_MAIN", 'w', newline = '')
+            writer = csv.writer(file_main)
+            HEADER = ["TIMESTAMP", "MODE", "REPETITION", "DURATION", "PWM", "RPM"]
             writer.writerow(HEADER)
         
         if not settings:
             break
         else:
+            writer = csv.writer(file_main)
             while(message_display("\nTo begin testing, press '1' and ENTER: ", '1') != 1):
                 pass
             for i in range(0, len(settings[0])):
-                RPM_AVG.append(main(i, settings[0][i], settings[1][i]))
-                time.sleep(3)
-                    #while(message_display("To continue, press '2' and ENTER: ", '2') != 1):
-                    #    pass
+                for j in range(0, settings[2][i]):
+                    file_main_row = []
+                    RPM_AVG.append(main(i, settings[0][i], settings[1][i], settings[2][i]))
+                    time.sleep(3)
+                    file_main_row.append(FILE_OUTPUT_NAME)           # timestamp
+                    file_main_row.append(i + 1)                      # mode number
+                    file_main_row.append(j + 1)                      # repetition number
+                    file_main_row.append(settings[0])                # duration
+                    file_main_row.append(settings[1])                # PWM
+                    file_main_row.append(RPM_AVG[-1])                # Avg RPM
+                    writer.writerow(file_main_row)
             display_results(RPM_AVG, settings)
+            for i in range(0, len)
             while(message_display("To continue, press '2' and ENTER: ", '2') != 1):
                 pass
