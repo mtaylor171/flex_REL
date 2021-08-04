@@ -105,7 +105,7 @@ def main(MODE, RUN_TIME, DUTY, REP):
     RPM_GPIO = 4
     PWM_GPIO = 19
 
-    SAMPLE_TIME = 5
+    SAMPLE_TIME = 1
 
     file_raw_row = []
 
@@ -227,7 +227,7 @@ if __name__ == "__main__":
             for i in range(0, len(settings[0])):
                 for j in range(0, settings[2][i]):
                     file_main_row = []
-                    RPM_AVG.append(main(i, settings[0][i], settings[1][i], settings[2][i]))
+                    RPM_AVG.append(main(i, settings[0][i], settings[1][i], j))
                     time.sleep(3)
                     file_main_row.append(FILE_OUTPUT_NAME)           # timestamp
                     file_main_row.append(i + 1)                      # mode number
