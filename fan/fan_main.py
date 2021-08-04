@@ -168,8 +168,8 @@ def display_results(RPM_AVG, settings):
         print(f"Mode = {i+1}, Duration = {settings[0][i]}, Repetition = {settings[2][i]}, PWM = {settings[1][i]} %, Avg RPM = {round(RPM_AVG[i], 1)}")
 
 def start_sequence():
-    settings = np.array([[],[],[]])
-
+    settings = [[],[],[]]
+    
     print('\033c')
     print("*****************************")
     print("\nNURO FAN TESTING\n")
