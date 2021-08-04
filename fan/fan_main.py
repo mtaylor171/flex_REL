@@ -1,6 +1,7 @@
 import time
 import pigpio
 import sys
+import datetime
 
 FILE_OUTPUT_NAME = ''
 
@@ -169,7 +170,7 @@ def display_results(RPM_AVG, settings):
 
 def start_sequence():
     settings = [[],[],[]]
-    
+
     print('\033c')
     print("*****************************")
     print("\nNURO FAN TESTING\n")
