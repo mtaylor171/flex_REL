@@ -46,7 +46,6 @@ class reader:
 
             if self._high_tick is not None:
                 t = pigpio.tickDiff(self._high_tick, tick)
-                print("tick")           #debug
 
                 if self._period is not None:
                     self._period = (self._old * self._period) + (self._new * t)
@@ -130,7 +129,7 @@ def main(MODE, RUN_TIME, DUTY, REP):
             if((time.time() - start) > 30):
                 p.rpm_data.append(RPM)
 
-            #print('\033c')
+            print('\033c')
             print("Time: {} ".format(round(time.time() - start), 1) + "RPM = {}".format(int(RPM+0.5)/2) + " (Press CTRL + C to STOP)")
 
             writer = csv.writer(file_raw)
