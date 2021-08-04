@@ -234,6 +234,5 @@ if __name__ == "__main__":
                     file_main_row.append(RPM_AVG[-1])                # Avg RPM
                     writer.writerow(file_main_row)
             display_results(RPM_AVG, settings)
-            for i in range(0, len)
             while(message_display("To continue, press '2' and ENTER: ", '2') != 1):
                 pass
