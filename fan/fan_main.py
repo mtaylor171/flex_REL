@@ -3,6 +3,7 @@ import pigpio
 import sys
 import datetime
 import csv
+import os
 
 FILE_OUTPUT_NAME = ''
 
