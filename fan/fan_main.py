@@ -100,12 +100,12 @@ def message_display(msg, desired_answer):
             print("*****************************")
             return 0
 
-def main(MODE, RUN_TIME, DUTY, REP):
+def main(MODE, RUN_TIME * 60, DUTY, REP):
 
     RPM_GPIO = 4
     PWM_GPIO = 19
 
-    SAMPLE_TIME = 0.5
+    SAMPLE_TIME = 5
 
     file_raw_row = []
 
@@ -130,7 +130,7 @@ def main(MODE, RUN_TIME, DUTY, REP):
                 p.rpm_data.append(RPM)
 
             print('\033c')
-            print("Time: {} ".format(round(time.time() - start), 1) + "RPM = {}".format(int(RPM+0.5)/2) + " (Press CTRL + C to STOP")
+            print("Time: {} ".format(round(time.time() - start), 1) + "RPM = {}".format(int(RPM+0.5)/2) + " (Press CTRL + C to STOP)")
 
             writer = csv.writer(file_raw)
             file_raw_row = []
@@ -209,7 +209,7 @@ if __name__ == "__main__":
         FILE_OUTPUT_NAME = str(datetime.datetime.now().replace(microsecond=0))
         file_raw = open("/home/pi/Documents/FAN_DATA_FOLDER/" + FILE_OUTPUT_NAME + "_RAW", 'w', newline='')
         writer = csv.writer(file_raw)
-        HEADER = ["MODE", "REPETITION", "TIMESTAMP", "PWM", "RPM"]
+        HEADER = ["TIMESTAMP", "MODE", "REPETITION", "PWM", "RPM"]
         writer.writerow(HEADER)
 
         if(os.path.exists("/home/pi/Documents/FAN_DATA_FOLDER/FILE_MAIN")):
