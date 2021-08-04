@@ -105,7 +105,7 @@ def main(MODE, RUN_TIME, DUTY, REP):
     RPM_GPIO = 4
     PWM_GPIO = 19
 
-    SAMPLE_TIME = 1
+    SAMPLE_TIME = 0.5
 
     file_raw_row = []
 
@@ -147,6 +147,8 @@ def main(MODE, RUN_TIME, DUTY, REP):
             print("*****************************")
             p.cancel()
             rpm_avg = p.calc_rpm()
+            file_raw.close()
+            file_main.close()
             print(f"Average RPM of Test: {rpm_avg}")
             return 0
         
@@ -238,5 +240,7 @@ if __name__ == "__main__":
                     file_main_row.append(RPM_AVG[-1])                # Avg RPM
                     writer.writerow(file_main_row)
             display_results(RPM_AVG, settings)
+            file_raw.close()
+            file_main.close()
             while(message_display("To continue, press '2' and ENTER: ", '2') != 1):
                 pass
