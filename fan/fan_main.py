@@ -168,8 +168,8 @@ def user_input(message, limit):
 def display_results(RPM_AVG, settings):
     print("\nTEST RESULTS:\n")
     for i in range(0, len(settings[0])):
-        for j in range(0, settings[2][i])
-        print(f"Mode = {i+1}, Duration = {settings[0][i]}, Repetition = {j}, PWM = {settings[1][i]} %, Avg RPM = {round(RPM_AVG[i], 1)}")
+        for j in range(0, settings[2][i]):
+            print(f"Mode = {i+1}, Duration = {settings[0][i]}, Repetition = {j}, PWM = {settings[1][i]} %, Avg RPM = {round(RPM_AVG[i], 1)}")
 
 def start_sequence():
     settings = [[],[],[]]
