@@ -204,7 +204,7 @@ if __name__ == "__main__":
 
         FILE_OUTPUT_NAME = str(datetime.datetime.now().replace(microsecond=0))
         file_raw = open("/home/pi/Documents/FAN_DATA_FOLDER/" + FILE_OUTPUT_NAME + "_RAW", 'w', newline='')
-        writer = csv.writer(file_main)
+        writer = csv.writer(file_raw)
         HEADER = ["MODE", "REPETITION", "TIMESTAMP", "PWM", "RPM"]
         writer.writerow(HEADER)
 
