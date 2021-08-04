@@ -100,7 +100,7 @@ def message_display(msg, desired_answer):
             print("*****************************")
             return 0
 
-def main(MODE, RUN_TIME * 60, DUTY, REP):
+def main(MODE, RUN_TIME, DUTY, REP):
 
     RPM_GPIO = 4
     PWM_GPIO = 19
@@ -120,7 +120,7 @@ def main(MODE, RUN_TIME * 60, DUTY, REP):
 
     start = time.time()
 
-    while (time.time() - start) < RUN_TIME:
+    while (time.time() - start) < (RUN_TIME * 60):
         try:
         
             time.sleep(SAMPLE_TIME)
