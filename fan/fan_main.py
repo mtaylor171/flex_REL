@@ -88,6 +88,7 @@ class reader:
         self.pi.hardware_PWM(self.pwm, 25000, 0)
         self.pi.set_watchdog(self.gpio, 0)
         self._cb.cancel()
+        self.pi.stop()
 
 def message_display(msg, desired_answer):
     while(1):
@@ -156,7 +157,6 @@ def main(MODE, RUN_TIME, DUTY, REP):
         finally:
             pass
 
-    pi.stop()
     p.cancel()
     rpm_avg = p.calc_rpm()
 
