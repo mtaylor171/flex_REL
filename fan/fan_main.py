@@ -202,7 +202,7 @@ if __name__ == "__main__":
     global file_main
     
     while(1):
-        RPM_AVG = []
+        RPM_AVG = [[],[]]
 
         settings = start_sequence()
 
@@ -239,7 +239,7 @@ if __name__ == "__main__":
                     file_main_row.append(settings[1][i])                # PWM
                     file_main_row.append(round(RPM_AVG[-1], 0))                # Avg RPM
                     writer.writerow(file_main_row)
-            display_results(RPM_AVG, settings)
+            #display_results(RPM_AVG, settings)
             file_raw.close()
             file_main.close()
             while(message_display("To continue, press '2' and ENTER: ", '2') != 1):
