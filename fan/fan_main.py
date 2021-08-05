@@ -80,7 +80,7 @@ class reader:
         else:
             for i in range(0, len(self.rpm_data)):
                 temp_sum += self.rpm_data[i]
-            return ((temp_sum/2)/(len(self.rpm_data) - 1))
+            return ((temp_sum)/(len(self.rpm_data) - 1))
 
 
 
@@ -140,7 +140,7 @@ def main(MODE, RUN_TIME, DUTY, REP):
             file_raw_row.append(REP + 1)                      # repetition number
             file_raw_row.append(RUN_TIME)                # duration
             file_raw_row.append(DUTY)                # PWM
-            file_raw_row.append(round(RPM))                # Avg RPM
+            file_raw_row.append(int(RPM+0.5)/2)                # Avg RPM
             writer.writerow(file_raw_row)
         except KeyboardInterrupt:
             print("*****************************")
