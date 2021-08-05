@@ -237,7 +237,7 @@ if __name__ == "__main__":
                     file_main_row.append(j + 1)                      # repetition number
                     file_main_row.append(settings[0][i])                # duration
                     file_main_row.append(settings[1][i])                # PWM
-                    file_main_row.append(round(RPM_AVG[-1], 0)                # Avg RPM
+                    file_main_row.append(round(RPM_AVG[-1], 0))                # Avg RPM
                     writer.writerow(file_main_row)
             display_results(RPM_AVG, settings)
             file_raw.close()
