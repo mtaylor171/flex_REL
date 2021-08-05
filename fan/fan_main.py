@@ -140,7 +140,7 @@ def main(MODE, RUN_TIME, DUTY, REP):
             file_raw_row.append(REP + 1)                      # repetition number
             file_raw_row.append(RUN_TIME)                # duration
             file_raw_row.append(DUTY)                # PWM
-            file_raw_row.append(round(RPM, 0))                # Avg RPM
+            file_raw_row.append(round(RPM))                # Avg RPM
             writer.writerow(file_raw_row)
         except KeyboardInterrupt:
             print("*****************************")
@@ -239,7 +239,7 @@ if __name__ == "__main__":
                     file_main_row.append(j + 1)                      # repetition number
                     file_main_row.append(settings[0][i])                # duration
                     file_main_row.append(settings[1][i])                # PWM
-                    file_main_row.append(round(RPM_AVG[-1], 0))                # Avg RPM
+                    file_main_row.append(round(RPM_AVG[-1]))                # Avg RPM
                     writer.writerow(file_main_row)
             #display_results(RPM_AVG, settings)
             file_raw.close()
