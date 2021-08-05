@@ -105,7 +105,7 @@ def main(MODE, RUN_TIME, DUTY, REP):
     RPM_GPIO = 4
     PWM_GPIO = 19
 
-    SAMPLE_TIME = 5
+    SAMPLE_TIME = 10
 
     file_raw_row = []
 
