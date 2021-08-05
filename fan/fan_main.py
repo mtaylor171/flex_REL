@@ -128,7 +128,7 @@ def main(MODE, RUN_TIME, DUTY, REP):
 
             RPM = p.RPM()
             if((time.time() - start) > 30):
-                p.rpm_data.append(RPM)
+                p.rpm_data.append(int(RPM+0.5)/2)
 
             print('\033c')
             print("Time: {} ".format(round(time.time() - start), 1) + "RPM = {}".format(int(RPM+0.5)/2) + " (Press CTRL + C to STOP)")
