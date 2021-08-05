@@ -149,12 +149,14 @@ def main(MODE, RUN_TIME, DUTY, REP):
             rpm_avg = p.calc_rpm()
             file_raw.close()
             file_main.close()
+            pi.stop()
             print(f"Average RPM of Test: {rpm_avg}")
             return 0
         
         finally:
             pass
 
+    pi.stop()
     p.cancel()
     rpm_avg = p.calc_rpm()
 
