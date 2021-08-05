@@ -135,8 +135,8 @@ def main(MODE, RUN_TIME, DUTY, REP):
             writer = csv.writer(file_raw)
             file_raw_row = []
             file_raw_row.append(str(datetime.datetime.now().replace(microsecond=0)))           # timestamp
-            file_raw_row.append(MODE)                      # mode number
-            file_raw_row.append(REP)                      # repetition number
+            file_raw_row.append(MODE + 1)                      # mode number
+            file_raw_row.append(REP + 1)                      # repetition number
             file_raw_row.append(RUN_TIME)                # duration
             file_raw_row.append(DUTY)                # PWM
             file_raw_row.append(round(RPM, 0))                # Avg RPM
