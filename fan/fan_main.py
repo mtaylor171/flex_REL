@@ -139,7 +139,7 @@ def main(MODE, RUN_TIME, DUTY, REP):
             file_raw_row.append(REP)                      # repetition number
             file_raw_row.append(RUN_TIME)                # duration
             file_raw_row.append(DUTY)                # PWM
-            file_raw_row.append(RPM)                # Avg RPM
+            file_raw_row.append(round(RPM, 0))                # Avg RPM
             writer.writerow(file_raw_row)
         except KeyboardInterrupt:
             print("*****************************")
@@ -209,7 +209,7 @@ if __name__ == "__main__":
         FILE_OUTPUT_NAME = str(datetime.datetime.now().replace(microsecond=0))
         file_raw = open("/home/pi/Documents/FAN_DATA_FOLDER/" + FILE_OUTPUT_NAME + "_RAW", 'w', newline='')
         writer = csv.writer(file_raw)
-        HEADER = ["TIMESTAMP", "MODE", "REPETITION", "PWM", "RPM"]
+        HEADER = ["TIMESTAMP", "MODE", "REPETITION", "PWM (%)", "RPM"]
         writer.writerow(HEADER)
 
         if(os.path.exists("/home/pi/Documents/FAN_DATA_FOLDER/FILE_MAIN")):
@@ -218,7 +218,7 @@ if __name__ == "__main__":
         else:
             file_main = open("/home/pi/Documents/FAN_DATA_FOLDER/FILE_MAIN", 'w', newline = '')
             writer = csv.writer(file_main)
-            HEADER = ["TIMESTAMP", "MODE", "REPETITION", "DURATION", "PWM", "RPM"]
+            HEADER = ["TIMESTAMP", "MODE", "REPETITION", "DURATION (min)", "PWM (%)", "RPM"]
             writer.writerow(HEADER)
         
         if not settings:
@@ -237,7 +237,7 @@ if __name__ == "__main__":
                     file_main_row.append(j + 1)                      # repetition number
                     file_main_row.append(settings[0][i])                # duration
                     file_main_row.append(settings[1][i])                # PWM
-                    file_main_row.append(RPM_AVG[-1])                # Avg RPM
+                    file_main_row.append(round(RPM_AVG[-1], 0)                # Avg RPM
                     writer.writerow(file_main_row)
             display_results(RPM_AVG, settings)
             file_raw.close()
