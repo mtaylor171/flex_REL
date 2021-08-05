@@ -128,6 +128,7 @@ def main(MODE, RUN_TIME, DUTY, REP):
     file_raw_row.append(RUN_TIME)                # duration
     file_raw_row.append(DUTY)                # PWM
     file_raw_row.append(0)                # Avg RPM
+    writer.writerow(file_raw_row)
     while (time.time() - start) < (RUN_TIME * 60):
         try:
         
