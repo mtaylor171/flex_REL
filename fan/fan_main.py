@@ -80,7 +80,7 @@ class reader:
         else:
             for i in range(0, len(self.rpm_data)):
                 temp_sum += self.rpm_data[i]
-            return ((temp_sum)/(len(self.rpm_data) - 1))
+            return ((temp_sum)/(len(self.rpm_data)))
 
 
 
@@ -134,8 +134,7 @@ def main(MODE, RUN_TIME, DUTY, REP):
             time.sleep(SAMPLE_TIME)
 
             RPM = p.RPM()
-            if((time.time() - start) > 30):
-                p.rpm_data.append(int(RPM+0.5)/2)
+            p.rpm_data.append(round((RPM+0.5)/2))
 
             print('\033c')
             print("Time: {} ".format(round(time.time() - start), 1) + "RPM = {}".format(int(RPM+0.5)/2) + " (Press CTRL + C to STOP)")
@@ -228,7 +227,7 @@ if __name__ == "__main__":
             file_main = open("/home/pi/Documents/FAN_DATA_FOLDER/FILE_MAIN", 'w', newline = '')
             writer = csv.writer(file_main)
             HEADER = ["TIMESTAMP", "MODE", "REPETITION", "DURATION (min)", "PWM (%)", "RPM"]
-            writer.writerow(HEADER)
+            writer.writ erow(HEADER)
         
         if not settings:
             break
