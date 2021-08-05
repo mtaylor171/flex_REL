@@ -120,7 +120,14 @@ def main(MODE, RUN_TIME, DUTY, REP):
     p.PWM(DUTY)
 
     start = time.time()
-
+    writer = csv.writer(file_raw)
+    file_raw_row = []
+    file_raw_row.append(str(datetime.datetime.now().replace(microsecond=0)))           # timestamp
+    file_raw_row.append(MODE + 1)                      # mode number
+    file_raw_row.append(REP + 1)                      # repetition number
+    file_raw_row.append(RUN_TIME)                # duration
+    file_raw_row.append(DUTY)                # PWM
+    file_raw_row.append(0)                # Avg RPM
     while (time.time() - start) < (RUN_TIME * 60):
         try:
         
@@ -211,7 +218,7 @@ if __name__ == "__main__":
         FILE_OUTPUT_NAME = str(datetime.datetime.now().replace(microsecond=0))
         file_raw = open("/home/pi/Documents/FAN_DATA_FOLDER/" + FILE_OUTPUT_NAME + "_RAW", 'w', newline='')
         writer = csv.writer(file_raw)
-        HEADER = ["TIMESTAMP", "MODE", "REPETITION", "PWM (%)", "RPM"]
+        HEADER = ["TIMESTAMP", "MODE", "Duration", "REPETITION", "PWM (%)", "RPM"]
         writer.writerow(HEADER)
 
         if(os.path.exists("/home/pi/Documents/FAN_DATA_FOLDER/FILE_MAIN")):
