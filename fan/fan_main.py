@@ -227,7 +227,7 @@ if __name__ == "__main__":
         else:
             file_main = open("/home/pi/Documents/FAN_DATA_FOLDER/FILE_MAIN", 'w', newline = '')
             writer = csv.writer(file_main)
-            HEADER = ["TIMESTAMP", "MODE", "REPETITION", "DURATION (min)", "PWM (%)", "RPM"]
+            HEADER = ["TIMESTAMP", "MODE", "REPETITION", "DURATION (min)", "PWM (%)", "AVG RPM"]
             writer.writerow(HEADER)
         
         if not settings:
