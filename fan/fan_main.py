@@ -240,7 +240,6 @@ if __name__ == "__main__":
                 for j in range(0, settings[2][i]):
                     file_main_row = []
                     RPM_AVG.append(main(i, settings[0][i], settings[1][i], j))
-                    time.sleep(3)
                     file_main_row.append(FILE_OUTPUT_NAME)           # timestamp
                     file_main_row.append(i + 1)                      # mode number
                     file_main_row.append(j + 1)                      # repetition number
@@ -248,6 +247,10 @@ if __name__ == "__main__":
                     file_main_row.append(settings[1][i])                # PWM
                     file_main_row.append(round(RPM_AVG[-1]))                # Avg RPM
                     writer.writerow(file_main_row)
+                    if (i == (len(settings[0]) - 1) and j == (settings[2][i] - 1)):
+                        pass
+                    else:
+                        time.sleep(600)
             #display_results(RPM_AVG, settings)
             file_raw.close()
             file_main.close()
